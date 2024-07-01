@@ -8,7 +8,8 @@ export function ModeToggle() {
   const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    setTheme(() => (theme === "dark" ? "light" : "dark"));
+    alert("Only dark mode is available");
+    return;
   };
 
   return (
