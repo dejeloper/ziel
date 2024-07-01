@@ -1,6 +1,5 @@
-import Image from "next/image";
-import { ModeToggle } from "./components/ModeToggle";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return <ModeToggle />;
+  return redirect("/dashboard/home");
 }
