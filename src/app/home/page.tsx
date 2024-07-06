@@ -29,12 +29,7 @@ export default function HomePage() {
             variant="lineal"
             className="py-2.5 px-5 me-2 mb-2 text-sm font-medium"
           >
-            <Link
-              href="/objectives/new"
-              className="text-red-500 xs:text-blue-500"
-            >
-              Crear Objetivo
-            </Link>
+            <Link href="/objectives/new">Crear Objetivo</Link>
           </Button>
           <Button
             variant="lineal"
