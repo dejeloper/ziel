@@ -4,9 +4,9 @@ import { Clock } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-export function TodayButton() {
+export function DailyButton() {
   return (
-    <Link href="/today">
+    <Link href="/daily">
       <Button variant="outline" size="icon">
         <Clock className="h-[1.2rem] w-[1.2rem]" />
       </Button>

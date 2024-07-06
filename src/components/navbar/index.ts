@@ -1,3 +1,3 @@
 export * from "./ModeToggle";
 export * from "./Navbar";
-export * from "./TodayButton";
+export * from "./DailyButton";
