@@ -11,12 +11,20 @@ datasource db {
 }
 
 model Event {
-  id          String   @id @default(cuid())
+  id          Int      @id @default(autoincrement())
   name        String
   description String?
   startDate   DateTime
   endDate     DateTime
   location    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Objective {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

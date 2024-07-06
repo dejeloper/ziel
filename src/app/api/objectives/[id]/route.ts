@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
-import { type IEventUpdate } from "@/interfaces/IEvent";
+import { IObjectiveUpdate } from "@/interfaces/IObjective";
 
 interface IParams {
   params: {
@@ -11,18 +11,18 @@ interface IParams {
 
 export async function GET(_request: Request, { params }: IParams) {
   try {
-    const event = await prisma.event.findUnique({
+    const objective = await prisma.objective.findUnique({
       where: {
         id: Number(params.id),
       },
     });
 
-    if (!event || event === null || event === undefined) {
+    if (!objective || objective === null || objective === undefined) {
       const status = 404;
       return NextResponse.json(
         {
           status,
-          message: `Evento id: ${params.id} no encontrado`,
+          message: `Objetivo id: ${params.id} no encontrado`,
           data: null,
           success: false,
         },
@@ -33,8 +33,8 @@ export async function GET(_request: Request, { params }: IParams) {
     return NextResponse.json(
       {
         status,
-        message: "Evento obtenido exitosamente",
-        data: event,
+        message: "Objetivo obtenido exitosamente",
+        data: objective,
         success: true,
       },
       { status }
@@ -60,19 +60,15 @@ export async function GET(_request: Request, { params }: IParams) {
 
 export async function PATCH(request: Request, { params }: IParams) {
   try {
-    const { name, description, startDate, endDate, location }: IEventUpdate =
-      await request.json();
+    const { name, description }: IObjectiveUpdate = await request.json();
 
-    const updatedEvent = await prisma.event.update({
+    const updateObjective = await prisma.objective.update({
       where: {
         id: Number(params.id),
       },
       data: {
         ...(name && { name }),
         ...(description && { description }),
-        ...(startDate && { startDate: new Date(startDate) }),
-        ...(endDate && { endDate: new Date(endDate) }),
-        ...(location && { location }),
       },
     });
 
@@ -80,8 +76,8 @@ export async function PATCH(request: Request, { params }: IParams) {
     return NextResponse.json(
       {
         status,
-        message: "Evento actualizado exitosamente",
-        data: updatedEvent,
+        message: "Objetivo actualizado exitosamente",
+        data: updateObjective,
         success: true,
       },
       { status }
@@ -93,7 +89,7 @@ export async function PATCH(request: Request, { params }: IParams) {
         return NextResponse.json(
           {
             status,
-            message: `Evento id: ${params.id} no encontrado`,
+            message: `Objetivo id: ${params.id} no encontrado`,
             data: null,
             success: false,
           },
@@ -118,18 +114,18 @@ export async function PATCH(request: Request, { params }: IParams) {
 
 export async function DELETE(_request: Request, { params }: IParams) {
   try {
-    const deleteEvent = await prisma.event.delete({
+    const deleteObjective = await prisma.objective.delete({
       where: {
         id: Number(params.id),
       },
     });
 
-    if (!deleteEvent) {
+    if (!deleteObjective) {
       const status = 404;
       return NextResponse.json(
         {
           status,
-          message: `Evento id: ${params.id} no encontrado`,
+          message: `Objetivo id: ${params.id} no encontrado`,
           data: null,
           success: false,
         },
@@ -141,8 +137,8 @@ export async function DELETE(_request: Request, { params }: IParams) {
     return NextResponse.json(
       {
         status,
-        message: "Evento eliminado exitosamente",
-        data: deleteEvent,
+        message: "Objetivo eliminado exitosamente",
+        data: deleteObjective,
         success: true,
       },
       { status }
@@ -154,7 +150,7 @@ export async function DELETE(_request: Request, { params }: IParams) {
         return NextResponse.json(
           {
             status,
-            message: `Evento id: ${params.id} no encontrado`,
+            message: `Objetivo id: ${params.id} no encontrado`,
             data: null,
             success: false,
           },

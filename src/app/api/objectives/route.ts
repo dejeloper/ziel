@@ -1,23 +1,23 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { type IEventCreate } from "@/interfaces/IEvent";
+import { IObjectiveCreate } from "@/interfaces/IObjective";
 
 export async function GET() {
   try {
-    const events = await prisma.event.findMany();
+    const objectives = await prisma.objective.findMany();
     let status = 200;
 
     if (
-      !events ||
-      events === null ||
-      events === undefined ||
-      events.length === 0
+      !objectives ||
+      objectives === null ||
+      objectives === undefined ||
+      objectives.length === 0
     ) {
       status = 404;
       return NextResponse.json(
         {
           status,
-          message: "No hay eventos",
+          message: "No hay objetivos",
           data: null,
           success: false,
         },
@@ -28,8 +28,8 @@ export async function GET() {
     return NextResponse.json(
       {
         status,
-        message: "Eventos obtenidos exitosamente",
-        data: events,
+        message: "Objetivos obtenidos exitosamente",
+        data: objectives,
         success: true,
       },
       { status }
@@ -55,14 +55,10 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { name, description, startDate, endDate, location }: IEventCreate =
-      await request.json();
-
-    if (!name || !description || !startDate || !endDate || !location) {
+    const { name, description }: IObjectiveCreate = await request.json();
+    if (!name || !description) {
       const status = 400;
-      let message =
-        "Faltan campos requeridos: name, description, startDate, endDate, location";
-
+      let message = "Faltan campos requeridos: name, description";
       return NextResponse.json(
         {
           status,
@@ -73,24 +69,19 @@ export async function POST(request: Request) {
         { status }
       );
     }
-
-    const newEvent = await prisma.event.create({
+    const newObjective = await prisma.objective.create({
       data: {
         name,
         description,
-        startDate: new Date(startDate),
-        endDate: new Date(endDate),
-        location,
       },
     });
 
     const status = 201;
-
     return NextResponse.json(
       {
         status,
-        message: "Evento creado exitosamente",
-        data: newEvent,
+        message: "Objetivo creado exitosamente",
+        data: newObjective,
         success: true,
       },
       { status }
