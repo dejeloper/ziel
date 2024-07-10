@@ -1,5 +1,5 @@
 import { IResponse } from "@/interfaces/IResponse";
-const service = "http://localhost:3000/api/objectives";
+const service = "/api/objectives";
 
 export async function getAllObjectives(): Promise<IResponse> {
   const res = await fetch(service);

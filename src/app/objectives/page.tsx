@@ -7,7 +7,7 @@ export default function ObjectivesPage() {
   const { response, objectives, error } = useObjectivesAll();
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p>Se presentó un error al consultar los objetivos: {error}</p>;
   }
 
   return (
